@@ -1,0 +1,47 @@
+/build
+/dist
+/bin/old
+/cmind-py-dev.egg-info
+/MANIFEST
+.project
+.settings
+.pydevproject
+.spyderproject
+.spyderworkspace
+
+# binary data files
+/grl_utils/brainweb/*
+
+# Sphinx documentation
+/doc/_build
+/doc/generated
+/doc/img_extra
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Compiled source #
+###################
+*.so
+*.o
+*.lib
+*.obj
+*.dll
+*.exe
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+Thumbs.db

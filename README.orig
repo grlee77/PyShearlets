@@ -1,0 +1,70 @@
+FFST - Fast Finite Shearlet Transform
+
+Overview
+--------
+The FFST package provides a fast implementation of the Finite Shearlet Transform. 
+Following the the path via the continuous shearlet transform,
+its counterpart on cones and finally its discretization on the full grid we obtain the
+translation invariant discrete shearlet transform. Our discrete shearlet transform 
+can be efficiently computed by the fast Fourier transform (FFT).
+The discrete shearlets constitute a Parseval frame of the finite Euclidean space such that
+
+More information can be found in the following Papers
+   - S. Häuser and G. Steidl, "Convex Multilabel Segmentation with Shearlet Regularization",
+        International Journal of Computer Mathematics. 90, (1), 62-81, 2013
+   - S. Häuser and G. Steidl, "FFST: a tutorial", arXiv Preprint 1202.1773, 2014
+
+The Matlab-Version of the toolbox is available for free download at
+
+               http://www.mathematik.uni-kl.de/imagepro/software/
+
+The zip-file contains all relevant files and folders. Simply unzip the archive 
+and add the folder (with subfolders!) to your Matlab-path or run installFFST.m.
+
+The folder FFST contains the main files for the both directions of the transform. 
+The included shearlets are stored in the folder shearlets. The folder helper 
+contains some helper functions. To create  simple geometric structures some 
+functions are provided in create. See contents.m and the comments in each 
+file for more information.
+
+Installation
+------------
+Run installFFST.m to add all folders to your MATLAB path.
+To check if everything is installed correctly run simple_example.m for testing. 
+
+Feedback
+--------
+If you have any questions, comments or suggestions feel free to contact 
+
+   Sören Häuser <haeuser@mathematik.uni-kl.de>
+   TU Kaiserslautern, Dept. of Mathematics
+   Paul-Ehrlich-Str. 31
+   67663 Kaiserslautern, GERMANY
+   
+Please keep track of any bugs you might encounter and send them to the author. 
+
+If you find FFST useful, we would be delighted to hear about what application
+you are using FFST for!
+ 
+Legal Information & Credits
+---------------------------
+Copyright (c) 2014 Sören Häuser
+
+This software was written by Sören Häuser.
+It was developed at the Department of Mathematics, TU Kaiserslautern
+
+FFST is free software. You can redistribute it and/or modify it under the
+terms of the GNU General Public License as published by the Free Software
+Foundation; either version 3 of the License, or (at your option) any later
+version. If not stated otherwise, this applies to all files contained in this
+package and its sub-directories. 
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ 

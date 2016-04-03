@@ -50,12 +50,12 @@ def shearletScaleShear(a, b=None, c=None, d=None):
     #--------------------------------------------------------------------------
     % Sören Häuser ~ FFST ~ 2014-07-22 ~ last edited: 2014-07-22 (Sören Häuser)
     """
-    ## display informations
+    # display informations
     disp = False
 
-    ## different cases
+    # different cases
     if b is None:
-        #compute j and k from index
+        # compute j and k from index
         index = a
         (j, k, cone) = index2jk(index)
         varargout = (j, k, cone)
@@ -65,7 +65,7 @@ def shearletScaleShear(a, b=None, c=None, d=None):
             print('shear k: %d (s = %.4f)\n' % (k, 2**(-j)*k))
             print('cone   : %s\n', cone)
     elif c is None:
-        #return data for index
+        # return data for index
         ST = a
         index = b
         varargout = ST[:, :, index]
@@ -77,7 +77,7 @@ def shearletScaleShear(a, b=None, c=None, d=None):
             print('shear k: %d (s = %.4f)\n' % (k, 2**(-j)*k))
             print('cone   : %s\n', cone)
     elif d is None:
-            #compute index from j and k and cone
+            # compute index from j and k and cone
             j = a
             k = b
             cone = c
@@ -90,7 +90,7 @@ def shearletScaleShear(a, b=None, c=None, d=None):
                 print('shear k: %d (s = %.4f)\n' % (k, 2**(-j)*k))
                 print('cone   : %s\n', cone)
     else:
-        #return data for j and k and cone
+        # return data for j and k and cone
         ST = a
         j = b
         k = c
@@ -112,7 +112,7 @@ def shearletScaleShear(a, b=None, c=None, d=None):
 
 def jk2index(j, k, cone):
     """ helper function, compute index from j, k and cone. """
-    #lowpass
+    # lowpass
     index = 1
     if np.isnan(j) and np.isnan(k) and cone == '0':
         return None
@@ -120,7 +120,7 @@ def jk2index(j, k, cone):
         # sum of lower scales
         index = index + np.sum(2**(2+np.arange(j)))
 
-        #get detail index from shear (and cone!)
+        # get detail index from shear (and cone!)
         if cone == 'h':
             if k <= 0:
                 index = index - k

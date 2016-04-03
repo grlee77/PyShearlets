@@ -13,7 +13,7 @@ ig = ImageGeometry(nx=128, ny=128, dx=1)
 phantom, params = ellipse_im(ig, params='shepplogan-mod')  #
 
 compare_to_matlab = False
-if False:
+if True:
     if compare_to_matlab:
         matlab_data = scipy.io.loadmat('/media/Data1/src_repositories/my_git/pyrecon/misc_codes_of_possible_use/Wavelet - Shearlets/FFST - Fast Finite Shearlet Transform/FFST_v2/tmp_matlab.mat')
         Psi_Matlab = matlab_data['Psi']

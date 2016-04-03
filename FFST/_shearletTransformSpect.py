@@ -2,15 +2,14 @@ from __future__ import division, print_function, absolute_import
 
 import numpy as np
 
-from .meyerShearlet import (meyerShearletSpect, meyerSmoothShearletSpect,
-                            meyeraux)
+from .meyerShearlet import (meyerShearletSpect, meyeraux)
 
 from ._scalesShearsAndSpectra import scalesShearsAndSpectra
-from grl_utils import fftshift, ifftshift, fftn, ifftn
+from ._fft import fftshift, ifftshift, fftn, ifftn
 
 
-def shearletTransformSpect(A, Psi=None, numOfScales=None, realCoefficients=True,
-                           maxScale='max',
+def shearletTransformSpect(A, Psi=None, numOfScales=None,
+                           realCoefficients=True, maxScale='max',
                            shearletSpect=meyerShearletSpect,
                            shearletArg=meyeraux, realReal=True):
     """
@@ -29,7 +28,6 @@ def shearletTransformSpect(A, Psi=None, numOfScales=None, realCoefficients=True,
     # INPUT:
     #  A                (matrix) image (or data) to transform
     #  numOfScales      (int) number of scales OR
-    #                   (3-d-matrix) precomputed Psi (optional)
     #  realCoefficients (bool) real/complex shearlets  (optional)
     #
     # OUTPUT:
@@ -58,12 +56,12 @@ def shearletTransformSpect(A, Psi=None, numOfScales=None, realCoefficients=True,
     #--------------------------------------------------------------------------
     # Sören Häuser ~ FFST ~ 2014-07-22 ~ last edited: 2014-07-22 (Sören Häuser)
     """
-    ## parse input
+    # parse input
     A = np.asarray(A)
     if (A.ndim != 2) or np.any(np.asarray(A.shape) <= 1):
         raise ValueError("2D image required")
 
-    ## compute spectra
+    # compute spectra
     if Psi is None:
         l = A.shape
         if numOfScales is None:
@@ -71,14 +69,22 @@ def shearletTransformSpect(A, Psi=None, numOfScales=None, realCoefficients=True,
             if numOfScales < 1:
                 raise ValueError('image to small!')
         Psi = scalesShearsAndSpectra(l, numOfScales=numOfScales,
-                                     realCoefficients=realCoefficients)
+                                     realCoefficients=realCoefficients,
+                                     shearletSpect=meyerShearletSpect,
+                                     shearletArg=meyeraux)
 
-    ## shearlet transform
-    uST = Psi * fftshift(fftn(A))[..., np.newaxis]
-    ST = ifftn(ifftshift(uST, axes=(0, 1)), axes=(0, 1))
+    # shearlet transform
+    if False:
+        # INCORRECT TO HAVE FFTSHIFT SINCE Psi ISNT SHIFTED!
+        uST = Psi * fftshift(fftn(A))[..., np.newaxis]
+        ST = ifftn(ifftshift(uST, axes=(0, 1)), axes=(0, 1))
+    else:
+        uST = Psi * fftn(A)[..., np.newaxis]
+        ST = ifftn(uST, axes=(0, 1))
 
-    #due to round-off errors the imaginary part is not zero but very small
-    #(not  10^-18) -> neglect it
+    # due to round-off errors the imaginary part is not zero but very small
+    # -> neglect it
     if realCoefficients and realReal and np.isrealobj(A):
         ST = ST.real
+
     return (ST, Psi)
