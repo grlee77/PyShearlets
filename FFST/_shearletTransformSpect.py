@@ -12,49 +12,49 @@ def shearletTransformSpect(A, Psi=None, numOfScales=None,
                            realCoefficients=True, maxScale='max',
                            shearletSpect=meyerShearletSpect,
                            shearletArg=meyeraux, realReal=True):
-    """
-    #SHEARLETTRANSFORMSPECT compute shearlet transform
-    # Compute the shearlet transform of a given image A. The number of scales
-    # and a boolean indicating real or complex coefficients are optional
-    # parameters.
-    # Using a parameter value list further details can be provided.
-    # ST contains the shearlet coefficients in a 3-d-matrix
-    # where the third index indicates the respective shear (1 for lowpass,
-    # 2:end for the different shears and scales). The images are ordered
-    # ascending with the scale and within each scale counter-clockwise with the
-    # direction of the shear.
-    # Psi contains the respective shearlets (in Fourier domain).
-    #
-    # INPUT:
-    #  A                (matrix) image (or data) to transform
-    #  numOfScales      (int) number of scales OR
-    #  realCoefficients (bool) real/complex shearlets  (optional)
-    #
-    # OUTPUT:
-    #  ST               (3-d-matrix) shearlet coefficients
-    #  Psi              (3-d-matrix) spectrum of shearlets
-    #
-    # PARAMETERS: (as optional parameter value list, arbitrary order)
-    #  'shearletSpect'  (string or def handle) shearlet spectrum
-    #  'shearletArg'    (arbitrary) further parameters for shearlet
-    #  'realReal'       (bool) guarantees really real shearlets
-    #  'maxScale'       ('max','min') maximal or minimal finest scale
-    #
-    # EXAMPLES:
-    #  #compute shearlet transform of image A with default parameters
-    #  [ST,Psi] = shearletTransformSpect(A)
-    #
-    #  #compute shearlet transform of image A with precomputed shearlet spectrum
-    #  [ST,Psi] = shearletTransformSpect(A,Psi)
-    #
-    #  #compute sharlet transform of image A with specified number of scales
-    #  [ST,Psi] = shearletTransformSpect(A, numOfScales=4)
-    #
-    #  #compute shearlet transform of image A with own shearlet
-    #  [ST,Psi] = shearletTransformSpect(A, shearletSpect=yourShearletSpect)
-    #
-    #--------------------------------------------------------------------------
-    # Sören Häuser ~ FFST ~ 2014-07-22 ~ last edited: 2014-07-22 (Sören Häuser)
+    """Compute the forward shearlet transform.
+
+    If the shearlet spectra, Psi, are not given they are computed using
+    parameters guessed from the coefficients.
+
+    Parameters
+    ----------
+    A : array
+        image to transform (2d)
+    Psi : array (3d), optional
+        spectrum of shearlets (3d)
+    realCoefficients : bool, optional
+        force real-valued coefficients
+    maxScale : {'min', 'max'}
+        maximal or minimal finest scale
+    shearletSpect : {meyerShearletSpect, meyerSmoothShearletSpect}
+        shearlet spectrum to use
+    shearletArg : function
+        auxiliarry function for the shearlet
+    realReal : bool, optional
+        return coefficients with real dtype (truncate minimal imaginary
+        component).
+
+    Returns
+    -------
+    ST : array (2d)
+        reconstructed image
+    Psi : array (3d), optional
+        spectrum of shearlets (3d)
+
+    Notes
+    -----
+    example usage
+
+    # compute shearlet transform of image A with default parameters
+    ST, Psi = shearletTransformSpect(A)
+
+    # compute shearlet transform of image A with precomputed shearlet spectrum
+    ST, Psi = shearletTransformSpect(A, Psi)
+
+    # compute sharlet transform of image A with specified number of scales
+    ST, Psi = shearletTransformSpect(A, numOfScales=4)
+
     """
     # parse input
     A = np.asarray(A)

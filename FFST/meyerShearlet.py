@@ -4,18 +4,19 @@ import numpy as np
 
 
 def meyeraux(x):
-    """
-    # meyer wavelet auxiliary function:
-    # v(x) = 35*x^4 - 84*x^5 + 70*x^6 - 20*x^7.
-    #
-    # INPUT:
-    #  x                (vector) grid points
-    #
-    # OUTPUT:
-    #  y                (vector) values at given points x
-    #
-    #--------------------------------------------------------------------------
-    # 2012-01-20, v1.0, (c) Sören Häuser
+    """meyer wavelet auxiliary function.
+
+    v(x) = 35*x^4 - 84*x^5 + 70*x^6 - 20*x^7.
+
+    Parameters
+    ----------
+    x : array
+        grid points
+
+    Returns
+    -------
+    y : array
+        values at x
     """
     # Auxiliary def values.
     y = np.polyval([-20, 70, -84, 35, 0, 0, 0, 0], x) * (x >= 0) * (x <= 1)
@@ -30,18 +31,19 @@ def meyerBump(x, meyeraux_func=meyeraux):
 
 
 def bump(x, meyeraux_func=meyeraux):
-    """
-    # compute the def psi_2^ at given points x
-    #
-    # INPUT:
-    #  x                (vector) grid points
-    #  meyeraux_func  (function handle) auxiliary function
-    #
-    # OUTPUT:
-    #  y				(vector) values at given points x
-    #
-    #--------------------------------------------------------------------------
-    # 2012-01-20, v1.0, (c) Sören Häuser
+    """compute the def psi_2^ at given points x.
+
+    Parameters
+    ----------
+    x : array
+        grid points
+    meyeraux_func : function
+        auxiliary function
+
+    Returns
+    -------
+    y : array
+        values at given points x
     """
     y = meyerBump(1+x, meyeraux_func)*(x <= 0) + \
         meyerBump(1-x, meyeraux_func)*(x > 0)
@@ -50,18 +52,20 @@ def bump(x, meyeraux_func=meyeraux):
 
 
 def meyerScaling(x, meyeraux_func=meyeraux):
-    """
-    # mother scaling def for meyer shearlet
-    #
-    # INPUT:
-    #  x                (vector) grid points
-    #  meyeraux_func  (function handle) auxiliary function
-    #
-    # OUTPUT:
-    #  phihat                (vector) values at given points x
-    #
-    #--------------------------------------------------------------------------
-    # 2012-01-20, v1.0, (c) Sören Häuser
+    """mother scaling def for meyer shearlet.
+
+    Parameters
+    ----------
+    x : array
+        grid points
+    meyeraux_func : function
+        auxiliary function
+
+    Returns
+    -------
+    y : phihat
+        values at given points x
+
     """
     xa = np.abs(x)
 
@@ -95,17 +99,18 @@ def _meyerHelper(x, realCoefficients=True, meyeraux_func=meyeraux):
 
 
 def meyerWavelet(x, realCoefficients=True, meyeraux_func=meyeraux):
-    """
-    # compute Meyer Wavelet
-    #
-    # INPUT:
-    #  x                (vector) grid points
-    #
-    # OUTPUT:
-    #  y                (vector) values at given points x
-    #
-    #--------------------------------------------------------------------------
-    # 2012-01-20, v1.0, (c) Sören Häuser
+    """ compute Meyer Wavelet.
+
+    Parameters
+    ----------
+    x : array
+        grid points
+
+    Returns
+    -------
+    y : phihat
+        values at given points x
+
     """
     y = np.sqrt(np.abs(_meyerHelper(x, realCoefficients, meyeraux_func))**2 +
                 np.abs(_meyerHelper(2*x, realCoefficients, meyeraux_func))**2)
@@ -114,26 +119,30 @@ def meyerWavelet(x, realCoefficients=True, meyeraux_func=meyeraux):
 
 def meyerShearletSpect(x, y, a, s, realCoefficients=True,
                        meyeraux_func=meyeraux, scaling_only=False):
-    """
-    # returns the spectrum of the shearlet "meyerShearlet" for given scale a,
-    # shear s, and grid xi_x and xi_y. shearlet_arg is optional.
-    #
-    # INPUT:
-    #  x    (meshgrid) the meshgrid for the x-axis
-    #  y    (meshgrid) the meshgrid for the y-axis
-    #  a    (real) scale
-    #  s    (real) shear
-    #  scaling_only (bool) optional argument for shearlet
-    #
-    #  realCoefficients (bool) real/complex shearlets
-    #  meyeraux_func  (function handle) auxiliary function
-    #  scaling          ('scaling') compute the respective scaling function
-    #
-    # OUTPUT:
-    #  Psi  (matrix) spectrum
-    #
-    #--------------------------------------------------------------------------
-    # 2012-01-20, v1.0, (c) Sören Häuser
+    """Returns the spectrum of the shearlet "meyerShearlet".
+
+    Parameters
+    ----------
+    x : array
+        meshgrid for the x-axis
+    y : array
+        meshgrid for the y-axis
+    a : float
+        scale
+    s : float
+        shear
+    realCoefficients : bool, optional
+        enforce real-valued coefficients
+    meyeraux_func : function
+        auxiliary function
+    scaling_only : bool, optional
+        return the scalings instead of computing the spectrum
+
+    Returns
+    -------
+    y : Psi
+        The shearlet spectrum
+
     """
     if scaling_only:
         # cones
@@ -158,33 +167,40 @@ def meyerShearletSpect(x, y, a, s, realCoefficients=True,
 
 def meyerSmoothShearletSpect(x, y, a, s, realCoefficients=True,
                              meyeraux_func=meyeraux, scaling_only=False):
-    """
-    #MEYERSMOOTHSHEARLETSPECT compute the spectrum of the smooth meyer shearlet
-    # Computes the spectrum of the smooth variant of the shearlet
-    # "meyerShearlet" for given scale a,
-    # shear s on the grid spanned by x and y.
-    # With meyeraux_handle different auxiliary functions can be selected.
-    #
-    # INPUT:
-    #  x                (meshgrid) the meshgrid for the x-axis
-    #  y                (meshgrid) the meshgrid for the y-axis
-    #  a                (real) scale
-    #  s                (real) shear
-    #  realCoefficients (bool) real/complex shearlets
-    #  meyeraux_handle  (def handle) auxiliary function
-    #  scaling          (bool) compute the respective scaling function
-    #
-    # OUTPUT:
-    #  Psi  (matrix) spectrum
-    #
-    # REFERENCES
-    #  construction based on ideas by
-    #  Kanghui Guo, and Demetrio Labate.
-    #  "The construction of smooth Parseval frames of shearlets."
-    #   Mathematical Modelling of Natural Phenomena 8.01 (2013): 82-105.
-    #
-    #--------------------------------------------------------------------------
-    # Sören Häuser ~ FFST ~ 2014-07-22 ~ last edited: 2014-07-22 (Sören Häuser)
+    """Returns the spectrum of the smooth variant of the Meyer shearlet
+
+    Parameters
+    ----------
+    x : array
+        meshgrid for the x-axis
+    y : array
+        meshgrid for the y-axis
+    a : float
+        scale
+    s : float
+        shear
+    realCoefficients : bool, optional
+        enforce real-valued coefficients
+    meyeraux_func : function
+        auxiliary function
+    scaling_only : bool, optional
+        return the scalings instead of computing the spectrum
+
+    Returns
+    -------
+    y : Psi
+        The shearlet spectrum
+
+    Notes
+    -----
+    construction based on ideas from [1]_.
+
+    References
+    ----------
+    .. [1] Kanghui Guo, and Demetrio Labate.
+    The construction of smooth Parseval frames of shearlets.
+    Mathematical Modelling of Natural Phenomena 8.01 (2013): 82-105.
+
     """
     if scaling_only:
         Psi = meyerScaling(x, meyeraux_func) * meyerScaling(y, meyeraux_func)
