@@ -10,28 +10,29 @@ from ._fft import fftshift, ifftshift, fftn, ifftn
 def inverseShearletTransformSpect(ST, Psi=None, maxScale='max',
                                   shearletSpect=meyerShearletSpect,
                                   shearletArg=meyeraux):
-    """
-    #INVERSESHEARLETTRANSFORMSPECT compute inverse shearlet transform
-    # Compute the inverse shearlet transform for given shearlet coefficients.
-    # If the shearlet spectra are not given they are computed using parameters
-    # guessed from the coefficients.
-    # The parameters 'shearletSpect', 'shearletArg' and 'maxScale' cannot be
-    # guessed and have to be provided if not the default ones.
-    #
-    # INPUT:
-    #  ST               (3-d-matrix) shearlet transform
-    #  Psi              (3-d-matrix) spectrum of shearlets (optional)
-    #
-    # OUTPUT:
-    #  A                (matrix) reconstructed image
-    #
-    # PARAMETERS: (as optional parameter value list, arbitrary order)
-    #  'shearletSpect'  (string or def handle) shearlet spectrum
-    #  'shearletArg'    (arbitrary) further parameters for shearlet
-    #  'maxScale'       ('max','min') maximal or minimal finest scale
-    #
-    #--------------------------------------------------------------------------
-    # Sören Häuser ~ FFST ~ 2014-07-22 ~ last edited: 2014-07-22 (Sören Häuser)
+    """Compute inverse shearlet transform.
+
+    If the shearlet spectra, Psi, are not given they are computed using
+    parameters guessed from the coefficients.
+
+    Parameters
+    ----------
+    ST : array (3d)
+        shearlet transform
+    Psi : array (3d), optional
+        3d spectrum of shearlets
+    maxScale : {'min', 'max'}
+        maximal or minimal finest scale
+    shearletSpect : {meyerShearletSpect, meyerSmoothShearletSpect}
+        shearlet spectrum to use
+    shearletArg : function
+        auxiliarry function for the shearlet
+
+    Returns
+    -------
+    A : array (2d)
+        reconstructed image
+
     """
 
     if Psi is None:
