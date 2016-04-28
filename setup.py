@@ -23,8 +23,8 @@ from numpy.distutils.misc_util import Configuration
 import subprocess
 
 
-MAJOR = 0
-MINOR = 5
+MAJOR = 1
+MINOR = 0
 MICRO = 0
 ISRELEASED = True
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
@@ -115,8 +115,9 @@ def configuration(parent_package='', top_path=None):
 
 if __name__ == '__main__':
     write_version_py()
+    FULLVERSION, GIT_REVISION = get_version_info()
     setup(name='PyShearlets',
-          version='1.0',
+          version=FULLVERSION,
           description='fast finite shearlet transform',
           author='Gregory R. Lee',
           author_email='grlee77@gmail.com',
