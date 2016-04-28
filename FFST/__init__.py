@@ -3,3 +3,5 @@ from __future__ import absolute_import
 from ._scalesShearsAndSpectra import scalesShearsAndSpectra
 from ._shearletTransformSpect import shearletTransformSpect
 from ._inverseShearletTransformSpect import inverseShearletTransformSpect
+
+from FFST.version import version as __version__

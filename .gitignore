@@ -9,8 +9,8 @@
 .spyderproject
 .spyderworkspace
 
-# binary data files
-/grl_utils/brainweb/*
+# autogenerate version file
+/FFST/version.py
 
 # Sphinx documentation
 /doc/_build
