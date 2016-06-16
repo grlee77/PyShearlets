@@ -8,9 +8,11 @@
 .pydevproject
 .spyderproject
 .spyderworkspace
+.cache
+.coverage
+*.egg-info
 
 # binary data files
-/grl_utils/brainweb/*
 
 # Sphinx documentation
 /doc/_build
