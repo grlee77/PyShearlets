@@ -25,4 +25,4 @@ install:
   - source activate test-environment
   - python setup.py build_ext --inplace
 
-script: python -m nose tests/*.py
+script: python -m nose FFST/tests/*.py
