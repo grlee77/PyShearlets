@@ -2,13 +2,15 @@ from __future__ import division, print_function, absolute_import
 
 import numpy as np
 from numpy.testing import assert_
+from FFST import (shearletTransformSpect, scalesShearsAndSpectra,
+                  inverseShearletTransformSpect)
+from pyir.utils import ImageGeometry, ellipse_im
 
 # simple example for FFST
 # computes the shearlet transform of some geometric image
 #
 #--------------------------------------------------------------------------
 # 2012-01-20, v1.0, (c) Sören Häuser
-from grl_utils import ImageGeometry, ellipse_im
 ig = ImageGeometry(nx=128, ny=128, dx=1)
 phantom, params = ellipse_im(ig, params='shepplogan-mod')  #
 
@@ -28,8 +30,6 @@ if True:
     # shearletSpect=meyerShearletSpect,
     # shearletArg=meyeraux
     # realReal=True
-from PyIRT.TGVSHCS.FFST import (shearletTransformSpect, scalesShearsAndSpectra,
-                                inverseShearletTransformSpect)
 precompute = True
 if not precompute:
     # shearlet transform
