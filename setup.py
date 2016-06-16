@@ -29,6 +29,7 @@ def configuration(parent_package='', top_path=None):
 
     # main modules
     config.add_subpackage('FFST')
+    config.add_subpackage('FFST.tests')
 
     return config
 
