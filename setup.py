@@ -19,6 +19,7 @@ python setup.py bdist --help-formats
 import os
 from numpy.distutils.core import setup
 from numpy.distutils.misc_util import Configuration
+import versioneer
 
 
 def configuration(parent_package='', top_path=None):
@@ -35,8 +36,9 @@ def configuration(parent_package='', top_path=None):
 
 
 setup(name='PyShearlets',
-      version='1.0',
-      description='fast finite shearlet transform',
+      version=versioneer.get_version(),
+      cmdclass=versioneer.get_cmdclass(),
+      description='2D fast finite shearlet transforms.',
       author='Gregory R. Lee',
       author_email='grlee77@gmail.com',
       url='https://bitbucket.org/grlee77/FFST',
