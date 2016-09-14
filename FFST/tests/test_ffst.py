@@ -1,6 +1,9 @@
 import numpy as np
 
-from numpy.testing import assert_, assert_raises, assert_equal
+from numpy.testing import (assert_,
+                           assert_raises,
+                           assert_equal,
+                           run_module_suite)
 
 from FFST import (scalesShearsAndSpectra,
                   inverseShearletTransformSpect,
@@ -73,3 +76,7 @@ def test_perfect_recon():
     #     XX = inverseShearletTransformSpect(ST, Psi)
     #     # sum along last axis = 1 everywhere if it is a tight frame
     #     assert_(np.max(X - XX) < 1e-2)  # TODO: get close if realReal=False, but must be a small bug somewhere in mixed odd/even case
+
+
+if __name__ == "__main__":
+    run_module_suite()
