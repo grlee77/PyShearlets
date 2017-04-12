@@ -84,10 +84,10 @@ def scalesShearsAndSpectra(shape, numOfScales=None,
     else:
         raise ValueError('Wrong option for maxScale, must be "max" or "min"')
 
-    xi_x_init = np.linspace(0, X, (shape[1] + 1) / 2)
+    xi_x_init = np.linspace(0, X, (shape[1] + 1) // 2)
     xi_x_init = np.concatenate((-xi_x_init[-1:0:-1], xi_x_init), axis=0)
     if rectangular:
-        xi_y_init = np.linspace(0, X, (shape[0] + 1) / 2)
+        xi_y_init = np.linspace(0, X, (shape[0] + 1) // 2)
         xi_y_init = np.concatenate((-xi_y_init[-1:0:-1], xi_y_init), axis=0)
     else:
         xi_y_init = xi_x_init
