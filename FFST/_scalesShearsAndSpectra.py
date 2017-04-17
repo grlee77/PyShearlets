@@ -8,7 +8,7 @@ from .meyerShearlet import meyerShearletSpect, meyeraux
 def _defaultNumberOfScales(l):
     numOfScales = int(np.floor(0.5 * np.log2(np.max(l))))
     if numOfScales < 1:
-        raise ValueError('image to small!')
+        raise ValueError('image too small!')
     return numOfScales
 
 
@@ -71,16 +71,16 @@ def scalesShearsAndSpectra(shape, numOfScales=None,
     if not (both_even or both_odd):
         # for some reason reconstruction is not exact in this case, so don't
         # allow it for now.
-        raise ValueError("Mixture of odd and even array sizes is currently "
+        raise ValueError("Mixture of odd and even axis sizes is currently "
                          "unsupported.")
 
     # create meshgrid
     # largest value where psi_1 is equal to 1
     maxScale = maxScale.lower()
     if maxScale == 'max':
-        X = 2**(2 * (numOfScales - 1) + 1)  # = 2^(2*numOfScales - 1)
+        X = 2**(2 * (numOfScales - 1) + 1)
     elif maxScale == 'min':
-        X = 2**(2 * (numOfScales - 1))  # = 2^(2*numOfScales - 2)
+        X = 2**(2 * (numOfScales - 1))
     else:
         raise ValueError('Wrong option for maxScale, must be "max" or "min"')
 
